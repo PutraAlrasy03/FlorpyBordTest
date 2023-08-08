@@ -644,7 +644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Pipe: {fileID: 6637428127598206451, guid: 1f16746aa741e25438db208db1f23f7f, type: 3}
   spawnRate: 3
-  heightOffSet: 21
+  heightOffSet: 19
 --- !u!1 &858308124
 GameObject:
   m_ObjectHideFlags: 0
