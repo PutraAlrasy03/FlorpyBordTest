@@ -16,12 +16,15 @@ public class BirdScript : MonoBehaviour
     private Vector3 originalScale;
     private Vector3 currentScale;
     private float targetScale = 1f;
+    public LogicScript logic;
+    public bool birdIsAlive = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
         // Set the constraints to freeze rotation in the Z-axis (rotation around the forward axis)
-        myRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+       
         originalScale = transform.localScale;
         currentScale = originalScale;
     }
@@ -29,9 +32,9 @@ public class BirdScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && birdIsAlive )
         {
-            myRigidbody.velocity = Vector2.up * flatStrength;
+            myRigidbody.velocity = Vector2.up * flatStrength ;
         }
 
         // Check if 'Q' is held down to start resizing bigger
@@ -53,5 +56,11 @@ public class BirdScript : MonoBehaviour
         currentScale.x = Mathf.MoveTowards(currentScale.x, targetScale, Time.deltaTime * scalingSpeed);
         currentScale.y = Mathf.MoveTowards(currentScale.y, targetScale, Time.deltaTime * scalingSpeed);
         transform.localScale = currentScale;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        logic.gameOver();
+        birdIsAlive = false;
     }
 }
